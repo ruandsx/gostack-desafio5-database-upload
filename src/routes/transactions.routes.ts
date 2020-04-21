@@ -13,11 +13,24 @@ transactionsRouter.get('/', async (request, response) => {
 
   const transactions = await transactionsRepository.find();
 
-  return response.json(transactions);
+  const balance = await transactionsRepository.getBalance();
+
+  return response.json({ transactions, balance });
 });
 
 transactionsRouter.post('/', async (request, response) => {
-  // TODO
+  const { title, value, type, category } = request.body;
+
+  const createTransaction = new CreateTransactionService();
+
+  const transaction = await createTransaction.execute({
+    title,
+    value,
+    type,
+    category,
+  });
+
+  return response.json(transaction);
 });
 
 transactionsRouter.delete('/:id', async (request, response) => {
