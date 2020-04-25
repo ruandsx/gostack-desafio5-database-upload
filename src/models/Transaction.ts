@@ -21,7 +21,7 @@ class Transaction {
   @Column()
   type: 'income' | 'outcome';
 
-  @Column('integer')
+  @Column('decimal')
   value: number;
 
   @ManyToOne(() => Category, category => category.transaction, { eager: true })
